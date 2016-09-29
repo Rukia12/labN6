@@ -16,21 +16,35 @@ var PikePlace = {
   max: 35,
   cups: 1.2,
   totalBeans: 0.34,
-  hours: [6,7,8,9,10,11,12,1,2,3,4,5,6,7,8,9]
+  customersPerHour: [],
+  hours: ['6am','7am','8am','9am','10am','11am',
+          '12pm','1pm','2pm','3pm','4pm','5pm','6pm','7pm','8pm','9pm'],
 
 //random number of customers//
   getRandom: function(min,max) {
-    return (Math.floor(Math.random() * ( max - min ) + min) );
-  }
-//cups/hr/loc//
-  for (var i=0; i<hours.length; i++) {
-    return [i];
+    var num = Math.floor(Math.random() * ( max - min + 1)) + min;
+    customersPerHour.push(num);
   }
 };
+  //calculateCustomersPerHour
+  //Total customers = 235 (# of customers* 16 hours open)
+  //(work backwards) getRandom: function(min,max) {
+  //  return (Math.floor(Math.random() * ( max - min ) + min) );
+
+//cups/hr/loc
+  //for (var i=0; i<hours.length; i++) {
+  //  return [i];
+  //}
+
 //total amount of beans 1lb = 16cups; per hr/daily/loc total then company total
 //Total pounds of beans 38.4 Pike place
 //totalBeans/hour * 15 hours open per location + total for each location
 
-//employees per hour each location each hour//each customer=2minutes//Math.floor
+//message += <p>'hours[i]' + ':' + totalPounds +'[PikePlace[customers], PikePlace[cups],PikePlace[pounds],PikePlace[to-go]]'</p>;
 
-//
+
+//employees per hour each location each hour//each customer=2minutes//Math.floor
+// 60minutes an hour /2minutes = 30 customers served/hr * 15 hours = 450
+
+//Total cups = 189
+//(work backwards) cups/hr * 15 (no of hours open)
