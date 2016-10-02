@@ -28,6 +28,8 @@ var pikePlaceMarket = {
   lbsPerDay: 0,
   employeesPerHour: [],
   employeesPerDay: 0,
+  toGoLbsPerHour: [],
+  toGoLbsPerDay: 0,
 
 //random number of customers//
   getRandomCustomer: function(min ,max) {
@@ -75,11 +77,18 @@ var pikePlaceMarket = {
     }
   },
 
+///to-go lbs///
+  generatetoGoLbsData: function() {
+    for (var i = 0; i < this.hours.length; i++) {
+      this.toGoLbsPerHour.push(Math.round(this.toGoLbsPerHour[i] * this.averagePounds),2);
+      this.toGoLbsPerDay += this.toGoLbsPerHour[i];
+    }
+  },
 //message += <p>'hours[i]' + ':' + totalPounds +'[PikePlace[customers], PikePlace[cups],PikePlace[pounds],PikePlace[to-go]]'</p>;
 //employees per hour each location each hour//each customer=2minutes//Math.floor
 // 60minutes an hour /2minutes = 30 customers served/hr * 15 hours = 450
-
 };
+
 //Total cups = 189
 //(work backwards) cups/hr * 15 (no of hours open)
 
@@ -87,13 +96,14 @@ pikePlaceMarket.generateCustomerData();
 pikePlaceMarket.generateCupsData();
 pikePlaceMarket.generateLbsData();
 pikePlaceMarket.generateEmployeeData();
+pikePlaceMarket.generatetoGoLbsData();
 
 ///////////Rendering to the DOM/////////
 var pikePlaceMarketEl = document.getElementById('pikePlaceMarket');
 
 for (var i = 0; i < pikePlaceMarket.hours.length; i++) {
   var pikePlaceMarketLi = document.createElement('li');
-  pikePlaceMarketLi.textContent = pikePlaceMarket.hours[i] + ':' + pikePlaceMarket.lbsPerDay + ' lbs ' + '[' + pikePlaceMarket.custPerHour[i] + ' customers, ' + pikePlaceMarket.cupsPerHour[i] + ' cups,' + '(' + pikePlaceMarket.lbsPerHour[i] + '), ' + pikePlaceMarket.employeesPerHour[i] + ' lbs to-go]';
+  pikePlaceMarketLi.textContent = pikePlaceMarket.hours[i] + ':' + pikePlaceMarket.lbsPerDay + ' lbs ' + '[' + pikePlaceMarket.custPerHour[i] + ' customers, ' + pikePlaceMarket.cupsPerHour[i] + ' cups,' + '(' + pikePlaceMarket.lbsPerHour[i] + ' lbs), ' + pikePlaceMarket.toGoLbsPerHour[i] + ' lbs to-go]';
   pikePlaceMarketEl.appendChild(pikePlaceMarketLi);
 }
 
