@@ -32,6 +32,7 @@ var pikePlaceMarket = {
 //random number of customers//
   getRandomCustomer: function(min ,max) {
     return Math.floor(Math.random() * (max - min) + min);
+
   },
   //calculateCustomersPerHour
   //Total customers = 235 (# of customers* 16 hours open)
@@ -52,7 +53,7 @@ var pikePlaceMarket = {
 
   generateCupsData: function() {
     for (var i = 0; i < this.hours.length; i++) {
-      this.cupsPerHour.push(this.custPerHour[i] * this.averageCups);
+      this.cupsPerHour.push(Math.ceil(this.custPerHour[i] * this.averageCups));
       this.cupsPerDay += this.cupsPerHour[i];
     }
   },
@@ -69,7 +70,7 @@ var pikePlaceMarket = {
 //totalBeans/hour * 15 hours open per location + total for each location
   generateLbsData: function() {
     for (var i = 0; i < this.hours.length; i++) {
-      this.lbsPerHour.push(this.custPerHour[i] * this.averagePounds);
+      this.lbsPerHour.push(Math.ceil(this.custPerHour[i] * this.averagePounds));
       this.lbsPerDay += this.lbsPerHour[i];
     }
   },
@@ -86,6 +87,15 @@ pikePlaceMarket.generateCustomerData();
 pikePlaceMarket.generateCupsData();
 pikePlaceMarket.generateLbsData();
 pikePlaceMarket.generateEmployeeData();
+
+///////////Rendering to the DOM/////////
+var pikePlaceMarketEl = document.getElementById('pikePlaceMarket');
+
+for (var i = 0; i < pikePlaceMarket.hours.length; i++) {
+  var pikePlaceMarketLi = document.createElement('li');
+  pikePlaceMarketLi.textContent = pikePlaceMarket.hours[i] + ':' + pikePlaceMarket.lbsPerDay + ' lbs ' + '[' + pikePlaceMarket.custPerHour[i] + ' customers, ' + pikePlaceMarket.cupsPerHour[i] + ' cups,' + '(' + pikePlaceMarket.lbsPerHour[i] + '), ' + pikePlaceMarket.employeesPerHour[i] + ' lbs to-go]';
+  pikePlaceMarketEl.appendChild(pikePlaceMarketLi);
+}
 
 ///////////Capitol Hill/////////////
 ////////////////////////////////////
