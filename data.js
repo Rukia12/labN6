@@ -1,5 +1,9 @@
 'use strict';
 
+///function round (num, prec) {
+///  return parseFloat(num.toFixed(prec));
+///};
+
 //Here's what Jo wants on the data page: for each location, a list that looks exactly like this example:
 ///Pike Place Market
 ////6:00am: 86.4 lbs [23 customers, 27.6 cups (1.4 lbs), 85 lbs to-go]
@@ -18,7 +22,7 @@ var pikePlaceMarket = {
   minCust: 14,
   maxCust: 35,
   averageCups: 1.2,
-  averagePounds: 0.34,
+  toGoPounds: 0.34,
   hours: ['6am', '7am', '8am', '9am', '10am', '11am', '12pm', '1pm', '2pm', '3pm', '4pm', '5pm', '6pm', '7pm', '8pm', '9pm'],
   custPerHour: [],
   custPerDay: 0,
@@ -28,8 +32,13 @@ var pikePlaceMarket = {
   lbsPerDay: 0,
   employeesPerHour: [],
   employeesPerDay: 0,
-  toGoLbsPerHour: [],
-  toGoLbsPerDay: 0,
+///////// looking for more information/////
+  beansUsedCupsPerHour: [],
+  beansUsedCupsPerDay: 0,
+  averagetotalLbsPerHour:[],
+  averagetotalLbsPerDay: 0,
+  toGoPerHour: [],
+  toGoPerDay: 0,
 
 //random number of customers//
   getRandomCustomer: function(min ,max) {
@@ -51,8 +60,6 @@ var pikePlaceMarket = {
 //cups/hr/loc
   //for (var i=0; i<hours.length; i++) {
   //  return [i];
-  //
-
   generateCupsData: function() {
     for (var i = 0; i < this.hours.length; i++) {
       this.cupsPerHour.push(Math.ceil(this.custPerHour[i] * this.averageCups));
@@ -68,22 +75,37 @@ var pikePlaceMarket = {
   },
 
 //total amount of beans 1lb = 16cups; per hr/daily/loc total then company total
-//Total pounds of beans 38.4 Pike place
-//totalBeans/hour * 15 hours open per location + total for each location
+///calulate avg lbs per hour using the cups + to-go lbs divide by 2  //
+
+///cups per hour divide 16cups per pound + to go lbs///
+//Total pounds of beans 38.4 Pike place = at every hour of averagetotalLbsPerHour
+
+//first calc the lbs per hour for the number of cups//
+  generatebeansUsedCupsPerHour: function() {
+    for (var i = 0; i < this.hours.length; i++) {
+      this.beansUsedCupsPerHour.push(Math.ceil(this.cupsPerHour[i] / 16));
+      this.beansUsedCupsPerDay += this.beansUsedCupsPerHour[i];
+    }
+  },
+
+////calculate the to-go
+  generatetoGoPerHour: function() {
+    for (var i = 0; i < this.hours.length; i++) {
+      this.toGoPerHour.push(Math.ceil(this.custPerHour[i] * this.toGoPounds));
+      this.toGoPerDay += this.toGoPerHour[i];
+    }
+  },
+
+///add the lbs used for cups + to go lbs//
+
   generateLbsData: function() {
     for (var i = 0; i < this.hours.length; i++) {
-      this.lbsPerHour.push(Math.ceil(this.custPerHour[i] * this.averagePounds));
+      this.lbsPerHour.push(Math.ceil(this.beansUsedCupsPerHour[i] + this.toGoPerHour[i]));
       this.lbsPerDay += this.lbsPerHour[i];
     }
   },
 
-///to-go lbs///
-  generatetoGoLbsData: function() {
-    for (var i = 0; i < this.hours.length; i++) {
-      this.toGoLbsPerHour.push(Math.round(this.toGoLbsPerHour[i] * this.averagePounds),2);
-      this.toGoLbsPerDay += this.toGoLbsPerHour[i];
-    }
-  },
+
 //message += <p>'hours[i]' + ':' + totalPounds +'[PikePlace[customers], PikePlace[cups],PikePlace[pounds],PikePlace[to-go]]'</p>;
 //employees per hour each location each hour//each customer=2minutes//Math.floor
 // 60minutes an hour /2minutes = 30 customers served/hr * 15 hours = 450
@@ -96,14 +118,15 @@ pikePlaceMarket.generateCustomerData();
 pikePlaceMarket.generateCupsData();
 pikePlaceMarket.generateLbsData();
 pikePlaceMarket.generateEmployeeData();
-pikePlaceMarket.generatetoGoLbsData();
+pikePlaceMarket.generatebeansUsedCupsPerHour();
+pikePlaceMarket.generatetoGoPerHour();
+
 
 ///////////Rendering to the DOM/////////
 var pikePlaceMarketEl = document.getElementById('pikePlaceMarket');
-
 for (var i = 0; i < pikePlaceMarket.hours.length; i++) {
   var pikePlaceMarketLi = document.createElement('li');
-  pikePlaceMarketLi.textContent = pikePlaceMarket.hours[i] + ':' + pikePlaceMarket.lbsPerDay + ' lbs ' + '[' + pikePlaceMarket.custPerHour[i] + ' customers, ' + pikePlaceMarket.cupsPerHour[i] + ' cups,' + '(' + pikePlaceMarket.lbsPerHour[i] + ' lbs), ' + pikePlaceMarket.toGoLbsPerHour[i] + ' lbs to-go]';
+  pikePlaceMarketLi.textContent = pikePlaceMarket.hours[i] + ':' + pikePlaceMarket.lbsPerDay + ' lbs ' + '[' + pikePlaceMarket.custPerHour[i] + ' customers, ' + pikePlaceMarket.cupsPerHour[i] + ' cups,' + '(' + pikePlaceMarket.lbsPerHour[i] + ' lbs), ' + pikePlaceMarket.toGoPerHour[i] + ' lbs to-go]';
   pikePlaceMarketEl.appendChild(pikePlaceMarketLi);
 }
 
