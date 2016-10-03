@@ -28,8 +28,6 @@ var pikePlaceMarket = {
   custPerDay: 0,
   cupsPerHour: [],
   cupsPerDay: 0,
-  lbsPerHour: [],
-  lbsPerDay: 0,
   employeesPerHour: [],
   employeesPerDay: 0,
 ///////// looking for more information/////
@@ -98,10 +96,10 @@ var pikePlaceMarket = {
 
 ///add the lbs used for cups + to go lbs//
 
-  generateLbsData: function() {
+  generateaverageTotalLbsData: function() {
     for (var i = 0; i < this.hours.length; i++) {
-      this.lbsPerHour.push(Math.ceil(this.beansUsedCupsPerHour[i] + this.toGoPerHour[i]));
-      this.lbsPerDay += this.lbsPerHour[i];
+      this.averagetotalLbsPerHour.push(Math.ceil(this.beansUsedCupsPerHour[i] + this.toGoPerHour[i]));
+      this.averagetotalLbsPerDay += this.averagetotalLbsPerHour[i];
     }
   },
 
@@ -116,7 +114,7 @@ var pikePlaceMarket = {
 
 pikePlaceMarket.generateCustomerData();
 pikePlaceMarket.generateCupsData();
-pikePlaceMarket.generateLbsData();
+pikePlaceMarket.generateaverageTotalLbsData();
 pikePlaceMarket.generateEmployeeData();
 pikePlaceMarket.generatebeansUsedCupsPerHourData();
 pikePlaceMarket.generatetoGoPerHourData();
@@ -126,7 +124,7 @@ pikePlaceMarket.generatetoGoPerHourData();
 var pikePlaceMarketEl = document.getElementById('pikePlaceMarket');
 for (var i = 0; i < pikePlaceMarket.hours.length; i++) {
   var pikePlaceMarketLi = document.createElement('li');
-  pikePlaceMarketLi.textContent = pikePlaceMarket.hours[i] + ':' + pikePlaceMarket.lbsPerDay + ' lbs ' + '[' + pikePlaceMarket.custPerHour[i] + ' customers, ' + pikePlaceMarket.cupsPerHour[i] + ' cups,' + '(' + pikePlaceMarket.beansUsedCupsPerHour[i] + ' lbs), ' + pikePlaceMarket.toGoPerHour[i] + ' lbs to-go]';
+  pikePlaceMarketLi.textContent = pikePlaceMarket.hours[i] + ':' + pikePlaceMarket.averagetotalLbsPerHour[i] + ' lbs ' + '[' + pikePlaceMarket.custPerHour[i] + ' customers, ' + pikePlaceMarket.cupsPerHour[i] + ' cups,' + '(' + pikePlaceMarket.beansUsedCupsPerHour[i] + ' lbs), ' + pikePlaceMarket.toGoPerHour[i] + ' lbs to-go]';
   pikePlaceMarketEl.appendChild(pikePlaceMarketLi);
 }
 
