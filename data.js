@@ -81,7 +81,7 @@ var pikePlaceMarket = {
 //Total pounds of beans 38.4 Pike place = at every hour of averagetotalLbsPerHour
 
 //first calc the lbs per hour for the number of cups//
-  generatebeansUsedCupsPerHour: function() {
+  generatebeansUsedCupsPerHourData: function() {
     for (var i = 0; i < this.hours.length; i++) {
       this.beansUsedCupsPerHour.push(Math.ceil(this.cupsPerHour[i] / 16));
       this.beansUsedCupsPerDay += this.beansUsedCupsPerHour[i];
@@ -89,7 +89,7 @@ var pikePlaceMarket = {
   },
 
 ////calculate the to-go
-  generatetoGoPerHour: function() {
+  generatetoGoPerHourData: function() {
     for (var i = 0; i < this.hours.length; i++) {
       this.toGoPerHour.push(Math.ceil(this.custPerHour[i] * this.toGoPounds));
       this.toGoPerDay += this.toGoPerHour[i];
@@ -118,15 +118,15 @@ pikePlaceMarket.generateCustomerData();
 pikePlaceMarket.generateCupsData();
 pikePlaceMarket.generateLbsData();
 pikePlaceMarket.generateEmployeeData();
-pikePlaceMarket.generatebeansUsedCupsPerHour();
-pikePlaceMarket.generatetoGoPerHour();
+pikePlaceMarket.generatebeansUsedCupsPerHourData();
+pikePlaceMarket.generatetoGoPerHourData();
 
 
 ///////////Rendering to the DOM/////////
 var pikePlaceMarketEl = document.getElementById('pikePlaceMarket');
 for (var i = 0; i < pikePlaceMarket.hours.length; i++) {
   var pikePlaceMarketLi = document.createElement('li');
-  pikePlaceMarketLi.textContent = pikePlaceMarket.hours[i] + ':' + pikePlaceMarket.lbsPerDay + ' lbs ' + '[' + pikePlaceMarket.custPerHour[i] + ' customers, ' + pikePlaceMarket.cupsPerHour[i] + ' cups,' + '(' + pikePlaceMarket.lbsPerHour[i] + ' lbs), ' + pikePlaceMarket.toGoPerHour[i] + ' lbs to-go]';
+  pikePlaceMarketLi.textContent = pikePlaceMarket.hours[i] + ':' + pikePlaceMarket.lbsPerDay + ' lbs ' + '[' + pikePlaceMarket.custPerHour[i] + ' customers, ' + pikePlaceMarket.cupsPerHour[i] + ' cups,' + '(' + pikePlaceMarket.beansUsedCupsPerHour[i] + ' lbs), ' + pikePlaceMarket.toGoPerHour[i] + ' lbs to-go]';
   pikePlaceMarketEl.appendChild(pikePlaceMarketLi);
 }
 
