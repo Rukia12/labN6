@@ -8,7 +8,7 @@ function coffeeShop (location,customer,cups,pounds,hours) {
   this.location = location;
   this.customer = customer;
   this.cups = cups;
-  this.pounds = pounds;
+  this.poundsPercup = poundsPerCup;
   this.hours = hours;
   this.custPerHour = [],
   this.custPerDay = 0,
@@ -22,5 +22,5 @@ function coffeeShop (location,customer,cups,pounds,hours) {
 }
 
 item.prototype.calccustPerHour = function (customer) {
-  this.custPerHour
+  this.custPerHour = round (())
 }
