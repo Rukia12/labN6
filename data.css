@@ -1,0 +1,36 @@
+body {
+  background-color: #b22222;
+  background-image: url(https://raw.githubusercontent.com/Rukia12/seattle-201n6/master/class-06-dom--objects--domain_modeling/lab/assets/campfire.jpg);
+  background-blend-mode: lighten;
+}
+
+h1 {
+  text-align: center;
+  font-size: 72px;
+  font-family: monospace;
+}
+
+img {
+
+  height: 200px;
+  width: 500px;
+}
+
+h2 {
+  font-size: 40px;
+  font-family: monospace;
+  text-align: justify;;
+}
+
+h3 {
+  font-size: 30px;
+  font-style: italic;
+  text-align: justify;;
+  font-family: monospace;
+}
+
+ul {
+  font-size: 20px;
+  font-family: monospace;
+  text-align: justify;
+}
