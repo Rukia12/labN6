@@ -253,23 +253,30 @@ var seattlePublicLibrary = {
   minCust: 9,
   maxCust: 45,
   averageCups: 2.6,
-  averagePounds: 0.02,
+  toGoPounds: 0.02,
   hours: ['6am', '7am', '8am', '9am', '10am', '11am', '12pm', '1pm', '2pm', '3pm', '4pm', '5pm', '6pm', '7pm', '8pm', '9pm'],
   custPerHour: [],
   custPerDay: 0,
   cupsPerHour: [],
   cupsPerDay: 0,
-  lbsPerHour: [],
-  lbsPerDay: 0,
   employeesPerHour: [],
   employeesPerDay: 0,
+  ///////// looking for more information/////
+  beansUsedCupsPerHour: [],
+  beansUsedCupsPerDay: 0,
+  averagetotalLbsPerHour:[],
+  averagetotalLbsPerDay: 0,
+  toGoPerHour: [],
+  toGoPerDay: 0,
 
-//random number of customers//
+  //random number of customers//
   getRandomCustomer: function(min ,max) {
     return Math.floor(Math.random() * (max - min) + min);
+
   },
-//calculateCustomersPerHour//(# of customers* 16 hours open)
-    // getRandom: function(min,max) {
+    //calculateCustomersPerHour
+    //Total customers = 235 (# of customers* 16 hours open)
+    //(work backwards) getRandom: function(min,max) {
     //  return (Math.floor(Math.random() * ( max - min ) + min) );
 
   generateCustomerData: function() {
@@ -279,13 +286,12 @@ var seattlePublicLibrary = {
     }
   },
 
-//cups/hr/loc
+  //cups/hr/loc
     //for (var i=0; i<hours.length; i++) {
     //  return [i];
-
   generateCupsData: function() {
     for (var i = 0; i < this.hours.length; i++) {
-      this.cupsPerHour.push(this.custPerHour[i] * this.averageCups);
+      this.cupsPerHour.push(Math.ceil(this.custPerHour[i] * this.averageCups));
       this.cupsPerDay += this.cupsPerHour[i];
     }
   },
@@ -298,27 +304,62 @@ var seattlePublicLibrary = {
   },
 
   //total amount of beans 1lb = 16cups; per hr/daily/loc total then company total
-  //Total pounds of beans 38.4 Pike place
-  //totalBeans/hour * 15 hours open per location + total for each location
-  generateLbsData: function() {
+  ///calulate avg lbs per hour using the cups + to-go lbs divide by 2  //
+
+  ///cups per hour divide 16cups per pound + to go lbs///
+  // at every hour of averagetotalLbsPerHour
+
+  //first calc the lbs per hour for the number of cups//
+  generatebeansUsedCupsPerHourData: function() {
     for (var i = 0; i < this.hours.length; i++) {
-      this.lbsPerHour.push(this.custPerHour[i] * this.averagePounds);
-      this.lbsPerDay += this.lbsPerHour[i];
+      this.beansUsedCupsPerHour.push(parseFloat(this.cupsPerHour[i] / 16).toFixed(2));
+      this.beansUsedCupsPerDay += this.beansUsedCupsPerHour[i];
     }
   },
+
+  ////calculate the to-go
+  generatetoGoPerHourData: function() {
+    for (var i = 0; i < this.hours.length; i++) {
+      this.toGoPerHour.push(parseFloat(this.custPerHour[i] * this.toGoPounds).toFixed(2));
+      this.toGoPerDay += this.toGoPerHour[i];
+    }
+  },
+
+  ///add the lbs used for cups + to go lbs//
+
+  generateaveragetotalLbsData: function() {
+    for (var i = 0; i < this.hours.length; i++) {
+      this.averagetotalLbsPerHour.push(parseFloat(this.beansUsedCupsPerHour[i] + this.toGoPerHour[i]).toFixed(2));
+      this.averagetotalLbsPerDay += this.averagetotalLbsPerHour[i];
+      console.log(this.beansUsedCupsPerHour[i]);
+    }
+  },
+
 
   //message += <p>'hours[i]' + ':' + totalPounds +'[PikePlace[customers], PikePlace[cups],PikePlace[pounds],PikePlace[to-go]]'</p>;
   //employees per hour each location each hour//each customer=2minutes//Math.floor
   // 60minutes an hour /2minutes = 30 customers served/hr * 15 hours = 450
-
 };
+
   //Total cups = 189
   //(work backwards) cups/hr * 15 (no of hours open)
 
 seattlePublicLibrary.generateCustomerData();
 seattlePublicLibrary.generateCupsData();
-seattlePublicLibrary.generateLbsData();
+seattlePublicLibrary.generatetoGoPerHourData();
+seattlePublicLibrary.generatebeansUsedCupsPerHourData();
+seattlePublicLibrary.generateaveragetotalLbsData();
 seattlePublicLibrary.generateEmployeeData();
+
+
+  ///////////Rendering to the DOM/////////
+var seattlePublicLibraryEl = document.getElementById('seattlePublicLibrary');
+
+for (i = 0; i < seattlePublicLibrary.hours.length; i++) {
+  var seattlePublicLibraryLi = document.createElement('li');
+  seattlePublicLibraryLi.textContent = seattlePublicLibrary.hours[i] + ':' + seattlePublicLibrary.averagetotalLbsPerHour[i] + ' lbs ' + '[' + seattlePublicLibrary.custPerHour[i] + ' customers, ' + seattlePublicLibrary.cupsPerHour[i] + ' cups,' + '(' + seattlePublicLibrary.beansUsedCupsPerHour[i] + ' lbs), ' + seattlePublicLibrary.toGoPerHour[i] + ' lbs to-go]';
+  seattlePublicLibraryEl.appendChild(seattlePublicLibraryLi);
+}
 
 //////////////South Lake Union//////////////
 ///////////////////////////////////////////
