@@ -104,7 +104,6 @@ var pikePlaceMarket = {
     }
   },
 
-
 //message += <p>'hours[i]' + ':' + totalPounds +'[PikePlace[customers], PikePlace[cups],PikePlace[pounds],PikePlace[to-go]]'</p>;
 //employees per hour each location each hour//each customer=2minutes//Math.floor
 // 60minutes an hour /2minutes = 30 customers served/hr * 15 hours = 450
@@ -119,7 +118,6 @@ pikePlaceMarket.generatetoGoPerHourData();
 pikePlaceMarket.generatebeansUsedCupsPerHourData();
 pikePlaceMarket.generateaveragetotalLbsData();
 pikePlaceMarket.generateEmployeeData();
-
 
 ///////////Rendering to the DOM/////////
 var pikePlaceMarketEl = document.getElementById('pikePlaceMarket');
@@ -573,8 +571,8 @@ var seatacAirport = {
   // 60minutes an hour /2minutes = 30 customers served/hr * 15 hours = 450
 };
 
-  //Total cups = 189
-  //(work backwards) cups/hr * 15 (no of hours open)
+///Additional information needed: total daily cups/to-go/beans per location and companywide
+
 
 seatacAirport.generateCustomerData();
 seatacAirport.generateCupsData();
