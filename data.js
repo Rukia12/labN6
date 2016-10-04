@@ -81,7 +81,7 @@ var pikePlaceMarket = {
 //first calc the lbs per hour for the number of cups//
   generatebeansUsedCupsPerHourData: function() {
     for (var i = 0; i < this.hours.length; i++) {
-      this.beansUsedCupsPerHour.push(Math.ceil(this.cupsPerHour[i] / 16));
+      this.beansUsedCupsPerHour.push(parseFloat(this.cupsPerHour[i] / 16).toFixed(2));
       this.beansUsedCupsPerDay += this.beansUsedCupsPerHour[i];
     }
   },
@@ -89,17 +89,18 @@ var pikePlaceMarket = {
 ////calculate the to-go
   generatetoGoPerHourData: function() {
     for (var i = 0; i < this.hours.length; i++) {
-      this.toGoPerHour.push(Math.ceil(this.custPerHour[i] * this.toGoPounds));
+      this.toGoPerHour.push(parseFloat(this.custPerHour[i] * this.toGoPounds).toFixed(2));
       this.toGoPerDay += this.toGoPerHour[i];
     }
   },
 
 ///add the lbs used for cups + to go lbs//
 
-  generateaverageTotalLbsData: function() {
+  generateaveragetotalLbsData: function() {
     for (var i = 0; i < this.hours.length; i++) {
-      this.averagetotalLbsPerHour.push(Math.ceil(this.beansUsedCupsPerHour[i] + this.toGoPerHour[i]));
+      this.averagetotalLbsPerHour.push(parseFloat(this.beansUsedCupsPerHour[i] + this.toGoPerHour[i]).toFixed(2));
       this.averagetotalLbsPerDay += this.averagetotalLbsPerHour[i];
+      console.log(this.beansUsedCupsPerHour[i]);
     }
   },
 
@@ -114,10 +115,10 @@ var pikePlaceMarket = {
 
 pikePlaceMarket.generateCustomerData();
 pikePlaceMarket.generateCupsData();
-pikePlaceMarket.generateaverageTotalLbsData();
-pikePlaceMarket.generateEmployeeData();
-pikePlaceMarket.generatebeansUsedCupsPerHourData();
 pikePlaceMarket.generatetoGoPerHourData();
+pikePlaceMarket.generatebeansUsedCupsPerHourData();
+pikePlaceMarket.generateaveragetotalLbsData();
+pikePlaceMarket.generateEmployeeData();
 
 
 ///////////Rendering to the DOM/////////
