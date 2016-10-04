@@ -1,5 +1,5 @@
 body {
-  background-color: #b22222;
+  background-color: #dda0dd;
   background-image: url(https://raw.githubusercontent.com/Rukia12/seattle-201n6/master/class-06-dom--objects--domain_modeling/lab/assets/campfire.jpg);
   background-blend-mode: lighten;
 }
@@ -8,6 +8,7 @@ h1 {
   text-align: center;
   font-size: 72px;
   font-family: monospace;
+  color: #4b0082;
 }
 
 img {
@@ -19,7 +20,8 @@ img {
 h2 {
   font-size: 40px;
   font-family: monospace;
-  text-align: justify;;
+  text-align: justify;
+  color: #4b0082;
 }
 
 h3 {
@@ -27,10 +29,12 @@ h3 {
   font-style: italic;
   text-align: justify;;
   font-family: monospace;
+  color: #4b0082;
 }
 
 ul {
   font-size: 20px;
   font-family: monospace;
   text-align: justify;
+  color: #4b0082;
 }
