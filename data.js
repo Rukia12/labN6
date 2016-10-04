@@ -365,29 +365,35 @@ for (i = 0; i < seattlePublicLibrary.hours.length; i++) {
 ///////////////////////////////////////////
 
 var southLakeUnion = {
-  location: 'Pike Place Market',
-  minCust: 14,
-  maxCust: 35,
-  averageCups: 1.2,
-  averagePounds: 0.34,
+  location: 'South Lake Union',
+  minCust: 5,
+  maxCust: 18,
+  averageCups: 1.3,
+  toGoPounds: 0.04,
   hours: ['6am', '7am', '8am', '9am', '10am', '11am', '12pm', '1pm', '2pm', '3pm', '4pm', '5pm', '6pm', '7pm', '8pm', '9pm'],
   custPerHour: [],
   custPerDay: 0,
   cupsPerHour: [],
   cupsPerDay: 0,
-  lbsPerHour: [],
-  lbsPerDay: 0,
   employeesPerHour: [],
   employeesPerDay: 0,
+  ///////// looking for more information/////
+  beansUsedCupsPerHour: [],
+  beansUsedCupsPerDay: 0,
+  averagetotalLbsPerHour:[],
+  averagetotalLbsPerDay: 0,
+  toGoPerHour: [],
+  toGoPerDay: 0,
 
-//random number of customers//
+  //random number of customers//
   getRandomCustomer: function(min ,max) {
     return Math.floor(Math.random() * (max - min) + min);
+
   },
-  //calculateCustomersPerHour
-  //Total customers = 235 (# of customers* 16 hours open)
-  //(work backwards) getRandom: function(min,max) {
-  //  return (Math.floor(Math.random() * ( max - min ) + min) );
+    //calculateCustomersPerHour
+    //Total customers = 235 (# of customers* 16 hours open)
+    //(work backwards) getRandom: function(min,max) {
+    //  return (Math.floor(Math.random() * ( max - min ) + min) );
 
   generateCustomerData: function() {
     for (var i = 0; i < this.hours.length; i++) {
@@ -396,14 +402,12 @@ var southLakeUnion = {
     }
   },
 
-//cups/hr/loc
-  //for (var i=0; i<hours.length; i++) {
-  //  return [i];
-  //
-
+  //cups/hr/loc
+    //for (var i=0; i<hours.length; i++) {
+    //  return [i];
   generateCupsData: function() {
     for (var i = 0; i < this.hours.length; i++) {
-      this.cupsPerHour.push(this.custPerHour[i] * this.averageCups);
+      this.cupsPerHour.push(Math.ceil(this.custPerHour[i] * this.averageCups));
       this.cupsPerDay += this.cupsPerHour[i];
     }
   },
@@ -415,56 +419,97 @@ var southLakeUnion = {
     }
   },
 
-//total amount of beans 1lb = 16cups; per hr/daily/loc total then company total
-//Total pounds of beans 38.4 Pike place
-//totalBeans/hour * 15 hours open per location + total for each location
-  generateLbsData: function() {
+  //total amount of beans 1lb = 16cups; per hr/daily/loc total then company total
+  ///calulate avg lbs per hour using the cups + to-go lbs divide by 2  //
+
+  ///cups per hour divide 16cups per pound + to go lbs///
+  // at every hour of averagetotalLbsPerHour
+
+  //first calc the lbs per hour for the number of cups//
+  generatebeansUsedCupsPerHourData: function() {
     for (var i = 0; i < this.hours.length; i++) {
-      this.lbsPerHour.push(this.custPerHour[i] * this.averagePounds);
-      this.lbsPerDay += this.lbsPerHour[i];
+      this.beansUsedCupsPerHour.push(parseFloat(this.cupsPerHour[i] / 16).toFixed(2));
+      this.beansUsedCupsPerDay += this.beansUsedCupsPerHour[i];
     }
   },
 
-//message += <p>'hours[i]' + ':' + totalPounds +'[PikePlace[customers], PikePlace[cups],PikePlace[pounds],PikePlace[to-go]]'</p>;
-//employees per hour each location each hour//each customer=2minutes//Math.floor
-// 60minutes an hour /2minutes = 30 customers served/hr * 15 hours = 450
+  ////calculate the to-go
+  generatetoGoPerHourData: function() {
+    for (var i = 0; i < this.hours.length; i++) {
+      this.toGoPerHour.push(parseFloat(this.custPerHour[i] * this.toGoPounds).toFixed(2));
+      this.toGoPerDay += this.toGoPerHour[i];
+    }
+  },
 
+  ///add the lbs used for cups + to go lbs//
+
+  generateaveragetotalLbsData: function() {
+    for (var i = 0; i < this.hours.length; i++) {
+      this.averagetotalLbsPerHour.push(parseFloat(this.beansUsedCupsPerHour[i] + this.toGoPerHour[i]).toFixed(2));
+      this.averagetotalLbsPerDay += this.averagetotalLbsPerHour[i];
+      console.log(this.beansUsedCupsPerHour[i]);
+    }
+  },
+
+
+  //message += <p>'hours[i]' + ':' + totalPounds +'[PikePlace[customers], PikePlace[cups],PikePlace[pounds],PikePlace[to-go]]'</p>;
+  //employees per hour each location each hour//each customer=2minutes//Math.floor
+  // 60minutes an hour /2minutes = 30 customers served/hr * 15 hours = 450
 };
-//Total cups = 189
-//(work backwards) cups/hr * 15 (no of hours open)
+
+  //Total cups = 189
+  //(work backwards) cups/hr * 15 (no of hours open)
 
 southLakeUnion.generateCustomerData();
 southLakeUnion.generateCupsData();
-southLakeUnion.generateLbsData();
+southLakeUnion.generatetoGoPerHourData();
+southLakeUnion.generatebeansUsedCupsPerHourData();
+southLakeUnion.generateaveragetotalLbsData();
 southLakeUnion.generateEmployeeData();
+
+
+  ///////////Rendering to the DOM/////////
+var southLakeUnionEl = document.getElementById('southLakeUnion');
+
+for (i = 0; i < southLakeUnion.hours.length; i++) {
+  var southLakeUnionLi = document.createElement('li');
+  southLakeUnionLi.textContent = southLakeUnion.hours[i] + ':' + southLakeUnion.averagetotalLbsPerHour[i] + ' lbs ' + '[' + southLakeUnion.custPerHour[i] + ' customers, ' + southLakeUnion.cupsPerHour[i] + ' cups,' + '(' + southLakeUnion.beansUsedCupsPerHour[i] + ' lbs), ' + southLakeUnion.toGoPerHour[i] + ' lbs to-go]';
+  southLakeUnionEl.appendChild(southLakeUnionLi);
+}
 
 //////Sea-tac Airport///////////
 ////////////////////////////////
 
 var seatacAirport = {
-  location: 'Pike Place Market',
-  minCust: 14,
-  maxCust: 35,
-  averageCups: 1.2,
-  averagePounds: 0.34,
+  location: 'Seatac Airport',
+  minCust: 28,
+  maxCust: 44,
+  averageCups: 1.1,
+  toGoPounds: 0.41,
   hours: ['6am', '7am', '8am', '9am', '10am', '11am', '12pm', '1pm', '2pm', '3pm', '4pm', '5pm', '6pm', '7pm', '8pm', '9pm'],
   custPerHour: [],
   custPerDay: 0,
   cupsPerHour: [],
   cupsPerDay: 0,
-  lbsPerHour: [],
-  lbsPerDay: 0,
   employeesPerHour: [],
   employeesPerDay: 0,
+  ///////// looking for more information/////
+  beansUsedCupsPerHour: [],
+  beansUsedCupsPerDay: 0,
+  averagetotalLbsPerHour:[],
+  averagetotalLbsPerDay: 0,
+  toGoPerHour: [],
+  toGoPerDay: 0,
 
-//random number of customers//
+  //random number of customers//
   getRandomCustomer: function(min ,max) {
     return Math.floor(Math.random() * (max - min) + min);
+
   },
-  //calculateCustomersPerHour
-  //Total customers = 235 (# of customers* 16 hours open)
-  //(work backwards) getRandom: function(min,max) {
-  //  return (Math.floor(Math.random() * ( max - min ) + min) );
+    //calculateCustomersPerHour
+    //Total customers = 235 (# of customers* 16 hours open)
+    //(work backwards) getRandom: function(min,max) {
+    //  return (Math.floor(Math.random() * ( max - min ) + min) );
 
   generateCustomerData: function() {
     for (var i = 0; i < this.hours.length; i++) {
@@ -473,14 +518,12 @@ var seatacAirport = {
     }
   },
 
-//cups/hr/loc
-  //for (var i=0; i<hours.length; i++) {
-  //  return [i];
-  //
-
+  //cups/hr/loc
+    //for (var i=0; i<hours.length; i++) {
+    //  return [i];
   generateCupsData: function() {
     for (var i = 0; i < this.hours.length; i++) {
-      this.cupsPerHour.push(this.custPerHour[i] * this.averageCups);
+      this.cupsPerHour.push(Math.ceil(this.custPerHour[i] * this.averageCups));
       this.cupsPerDay += this.cupsPerHour[i];
     }
   },
@@ -492,25 +535,60 @@ var seatacAirport = {
     }
   },
 
-//total amount of beans 1lb = 16cups; per hr/daily/loc total then company total
-//Total pounds of beans 38.4 Pike place
-//totalBeans/hour * 15 hours open per location + total for each location
-  generateLbsData: function() {
+  //total amount of beans 1lb = 16cups; per hr/daily/loc total then company total
+  ///calulate avg lbs per hour using the cups + to-go lbs divide by 2  //
+
+  ///cups per hour divide 16cups per pound + to go lbs///
+  // at every hour of averagetotalLbsPerHour
+
+  //first calc the lbs per hour for the number of cups//
+  generatebeansUsedCupsPerHourData: function() {
     for (var i = 0; i < this.hours.length; i++) {
-      this.lbsPerHour.push(this.custPerHour[i] * this.averagePounds);
-      this.lbsPerDay += this.lbsPerHour[i];
+      this.beansUsedCupsPerHour.push(parseFloat(this.cupsPerHour[i] / 16).toFixed(2));
+      this.beansUsedCupsPerDay += this.beansUsedCupsPerHour[i];
     }
   },
 
-//message += <p>'hours[i]' + ':' + totalPounds +'[PikePlace[customers], PikePlace[cups],PikePlace[pounds],PikePlace[to-go]]'</p>;
-//employees per hour each location each hour//each customer=2minutes//Math.floor
-// 60minutes an hour /2minutes = 30 customers served/hr * 15 hours = 450
+  ////calculate the to-go
+  generatetoGoPerHourData: function() {
+    for (var i = 0; i < this.hours.length; i++) {
+      this.toGoPerHour.push(parseFloat(this.custPerHour[i] * this.toGoPounds).toFixed(2));
+      this.toGoPerDay += this.toGoPerHour[i];
+    }
+  },
 
+  ///add the lbs used for cups + to go lbs//
+
+  generateaveragetotalLbsData: function() {
+    for (var i = 0; i < this.hours.length; i++) {
+      this.averagetotalLbsPerHour.push(parseFloat(this.beansUsedCupsPerHour[i] + this.toGoPerHour[i]).toFixed(2));
+      this.averagetotalLbsPerDay += this.averagetotalLbsPerHour[i];
+      console.log(this.beansUsedCupsPerHour[i]);
+    }
+  },
+
+
+  //message += <p>'hours[i]' + ':' + totalPounds +'[PikePlace[customers], PikePlace[cups],PikePlace[pounds],PikePlace[to-go]]'</p>;
+  //employees per hour each location each hour//each customer=2minutes//Math.floor
+  // 60minutes an hour /2minutes = 30 customers served/hr * 15 hours = 450
 };
-//Total cups = 189
-//(work backwards) cups/hr * 15 (no of hours open)
+
+  //Total cups = 189
+  //(work backwards) cups/hr * 15 (no of hours open)
 
 seatacAirport.generateCustomerData();
 seatacAirport.generateCupsData();
-seatacAirport.generateLbsData();
+seatacAirport.generatetoGoPerHourData();
+seatacAirport.generatebeansUsedCupsPerHourData();
+seatacAirport.generateaveragetotalLbsData();
 seatacAirport.generateEmployeeData();
+
+
+  ///////////Rendering to the DOM/////////
+var seatacAirportEl = document.getElementById('seatacAirport');
+
+for (i = 0; i < seatacAirport.hours.length; i++) {
+  var seatacAirportLi = document.createElement('li');
+  seatacAirportLi.textContent = seatacAirport.hours[i] + ':' + seatacAirport.averagetotalLbsPerHour[i] + ' lbs ' + '[' + seatacAirport.custPerHour[i] + ' customers, ' + seatacAirport.cupsPerHour[i] + ' cups,' + '(' + seatacAirport.beansUsedCupsPerHour[i] + ' lbs), ' + seatacAirport.toGoPerHour[i] + ' lbs to-go]';
+  seatacAirportEl.appendChild(seatacAirportLi);
+}
