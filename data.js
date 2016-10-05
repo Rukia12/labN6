@@ -213,7 +213,7 @@ var capitolHill = {
 //first calc the lbs per hour for the number of cups//
   generatebeansUsedCupsPerHourData: function() {
     for (var i = 0; i < this.hours.length; i++) {
-      this.beansUsedCupsPerHour.push(parseFloat(this.cupsPerHour[i] / 16).toFixed(2));
+      this.beansUsedCupsPerHour.push(parseFloat((this.cupsPerHour[i] / 16).toFixed(2)));
       this.beansUsedCupsPerDay += this.beansUsedCupsPerHour[i];
     }
   },
@@ -221,7 +221,7 @@ var capitolHill = {
 ////calculate the to-go
   generatetoGoPerHourData: function() {
     for (var i = 0; i < this.hours.length; i++) {
-      this.toGoPerHour.push(parseFloat(this.custPerHour[i] * this.toGoPounds).toFixed(2));
+      this.toGoPerHour.push(parseFloat((this.custPerHour[i] * this.toGoPounds).toFixed(2)));
       this.toGoPerDay += this.toGoPerHour[i];
     }
   },
@@ -230,9 +230,8 @@ var capitolHill = {
 
   generateaveragetotalLbsData: function() {
     for (var i = 0; i < this.hours.length; i++) {
-      this.averagetotalLbsPerHour.push(parseFloat(this.beansUsedCupsPerHour[i] + this.toGoPerHour[i]).toFixed(2));
+      this.averagetotalLbsPerHour.push(parseFloat((this.beansUsedCupsPerHour[i] + this.toGoPerHour[i]).toFixed(2)));
       this.averagetotalLbsPerDay += this.averagetotalLbsPerHour[i];
-      console.log(this.beansUsedCupsPerHour[i]);
     }
   },
 
@@ -272,11 +271,11 @@ capitolHillEl.appendChild(totalcaphillcupsperdayLi);
 
 var totalcaphilltogoperdayLi = document.createElement('li');
 totalcaphilltogoperdayLi.textContent = 'Total to-go pound packages sold at CapitolHill: ' + capitolHill.toGoPerDay;
-pikePlaceMarketEl.appendChild(totalcaphilltogoperdayLi);
+capitolHillEl.appendChild(totalcaphilltogoperdayLi);
 
 var totalcaphillbeansperdayLi = document.createElement('li');
 totalcaphillbeansperdayLi.textContent = 'Total pounds of beans needed at Capitol Hill: ' + capitolHill.averagetotalLbsPerDay;
-pikePlaceMarketEl.appendChild(totalcaphillbeansperdayLi);
+capitolHillEl.appendChild(totalcaphillbeansperdayLi);
 
 ////////Seattle Public Library////////
 /////////////////////////////////////
@@ -345,7 +344,7 @@ var seattlePublicLibrary = {
   //first calc the lbs per hour for the number of cups//
   generatebeansUsedCupsPerHourData: function() {
     for (var i = 0; i < this.hours.length; i++) {
-      this.beansUsedCupsPerHour.push(parseFloat(this.cupsPerHour[i] / 16).toFixed(2));
+      this.beansUsedCupsPerHour.push(parseFloat((this.cupsPerHour[i] / 16).toFixed(2)));
       this.beansUsedCupsPerDay += this.beansUsedCupsPerHour[i];
     }
   },
@@ -353,7 +352,7 @@ var seattlePublicLibrary = {
   ////calculate the to-go
   generatetoGoPerHourData: function() {
     for (var i = 0; i < this.hours.length; i++) {
-      this.toGoPerHour.push(parseFloat(this.custPerHour[i] * this.toGoPounds).toFixed(2));
+      this.toGoPerHour.push(parseFloat((this.custPerHour[i] * this.toGoPounds).toFixed(2)));
       this.toGoPerDay += this.toGoPerHour[i];
     }
   },
@@ -362,7 +361,7 @@ var seattlePublicLibrary = {
 
   generateaveragetotalLbsData: function() {
     for (var i = 0; i < this.hours.length; i++) {
-      this.averagetotalLbsPerHour.push(parseFloat(this.beansUsedCupsPerHour[i] + this.toGoPerHour[i]).toFixed(2));
+      this.averagetotalLbsPerHour.push(parseFloat((this.beansUsedCupsPerHour[i] + this.toGoPerHour[i]).toFixed(2)));
       this.averagetotalLbsPerDay += this.averagetotalLbsPerHour[i];
       console.log(this.beansUsedCupsPerHour[i]);
     }
@@ -393,6 +392,23 @@ for (i = 0; i < seattlePublicLibrary.hours.length; i++) {
   seattlePublicLibraryLi.textContent = seattlePublicLibrary.hours[i] + ':' + seattlePublicLibrary.averagetotalLbsPerHour[i] + ' lbs ' + '[' + seattlePublicLibrary.custPerHour[i] + ' customers, ' + seattlePublicLibrary.cupsPerHour[i] + ' cups,' + '(' + seattlePublicLibrary.beansUsedCupsPerHour[i] + ' lbs), ' + seattlePublicLibrary.toGoPerHour[i] + ' lbs to-go]';
   seattlePublicLibraryEl.appendChild(seattlePublicLibraryLi);
 }
+
+var totalSPLcustperdayLi = document.createElement('li');
+totalSPLcustperdayLi.textContent = 'Total Cusomers at Seattle Public Library: ' + seattlePublicLibrary.custPerDay;
+seattlePublicLibraryEl.appendChild(totalSPLcustperdayLi);
+
+var totalSPLcupsperdayLi = document.createElement('li');
+totalSPLcupsperdayLi.textContent = 'Total cups sold at Seattle Public Library:: ' + seattlePublicLibrary.cupsPerDay;
+seattlePublicLibraryEl.appendChild(totalSPLcupsperdayLi);
+
+var totalSPLtogoperdayLi = document.createElement('li');
+totalSPLtogoperdayLi.textContent = 'Total to-go pound packages sold at Seattle Public Library:: ' + seattlePublicLibrary.toGoPerDay;
+seattlePublicLibraryEl.appendChild(totalSPLtogoperdayLi);
+
+var totalSPLbeansperdayLi = document.createElement('li');
+totalSPLbeansperdayLi.textContent = 'Total pounds of beans needed at Seattle Public Library: ' + seattlePublicLibrary.averagetotalLbsPerDay;
+seattlePublicLibraryEl.appendChild(totalSPLbeansperdayLi);
+
 
 //////////////South Lake Union//////////////
 ///////////////////////////////////////////
@@ -461,7 +477,7 @@ var southLakeUnion = {
   //first calc the lbs per hour for the number of cups//
   generatebeansUsedCupsPerHourData: function() {
     for (var i = 0; i < this.hours.length; i++) {
-      this.beansUsedCupsPerHour.push(parseFloat(this.cupsPerHour[i] / 16).toFixed(2));
+      this.beansUsedCupsPerHour.push(parseFloat((this.cupsPerHour[i] / 16).toFixed(2)));
       this.beansUsedCupsPerDay += this.beansUsedCupsPerHour[i];
     }
   },
@@ -469,7 +485,7 @@ var southLakeUnion = {
   ////calculate the to-go
   generatetoGoPerHourData: function() {
     for (var i = 0; i < this.hours.length; i++) {
-      this.toGoPerHour.push(parseFloat(this.custPerHour[i] * this.toGoPounds).toFixed(2));
+      this.toGoPerHour.push(parseFloat((this.custPerHour[i] * this.toGoPounds).toFixed(2)));
       this.toGoPerDay += this.toGoPerHour[i];
     }
   },
@@ -478,7 +494,7 @@ var southLakeUnion = {
 
   generateaveragetotalLbsData: function() {
     for (var i = 0; i < this.hours.length; i++) {
-      this.averagetotalLbsPerHour.push(parseFloat(this.beansUsedCupsPerHour[i] + this.toGoPerHour[i]).toFixed(2));
+      this.averagetotalLbsPerHour.push(parseFloat((this.beansUsedCupsPerHour[i] + this.toGoPerHour[i]).toFixed(2)));
       this.averagetotalLbsPerDay += this.averagetotalLbsPerHour[i];
       console.log(this.beansUsedCupsPerHour[i]);
     }
@@ -509,6 +525,23 @@ for (i = 0; i < southLakeUnion.hours.length; i++) {
   southLakeUnionLi.textContent = southLakeUnion.hours[i] + ':' + southLakeUnion.averagetotalLbsPerHour[i] + ' lbs ' + '[' + southLakeUnion.custPerHour[i] + ' customers, ' + southLakeUnion.cupsPerHour[i] + ' cups,' + '(' + southLakeUnion.beansUsedCupsPerHour[i] + ' lbs), ' + southLakeUnion.toGoPerHour[i] + ' lbs to-go]';
   southLakeUnionEl.appendChild(southLakeUnionLi);
 }
+
+var totalSLUcustperdayLi = document.createElement('li');
+totalSLUcustperdayLi.textContent = 'Total Cusomers at South Lake Union: ' + southLakeUnion.custPerDay;
+southLakeUnionEl.appendChild(totalSLUcustperdayLi);
+
+var totalSLUcupsperdayLi = document.createElement('li');
+totalSLUcupsperdayLi.textContent = 'Total cups sold at South Lake Union:: ' + southLakeUnion.cupsPerDay;
+southLakeUnionEl.appendChild(totalSLUcupsperdayLi);
+
+var totalSLUtogoperdayLi = document.createElement('li');
+totalSLUtogoperdayLi.textContent = 'Total to-go pound packages sold at South Lake Union: ' + southLakeUnion.toGoPerDay;
+southLakeUnionEl.appendChild(totalSLUtogoperdayLi);
+
+var totalSLUbeansperdayLi = document.createElement('li');
+totalSLUbeansperdayLi.textContent = 'Total pounds of beans needed at South Lake Union: ' + southLakeUnion.averagetotalLbsPerDay;
+southLakeUnionEl.appendChild(totalSLUbeansperdayLi);
+
 
 //////Sea-tac Airport///////////
 ////////////////////////////////
@@ -577,7 +610,7 @@ var seatacAirport = {
   //first calc the lbs per hour for the number of cups//
   generatebeansUsedCupsPerHourData: function() {
     for (var i = 0; i < this.hours.length; i++) {
-      this.beansUsedCupsPerHour.push(parseFloat(this.cupsPerHour[i] / 16).toFixed(2));
+      this.beansUsedCupsPerHour.push(parseFloat((this.cupsPerHour[i] / 16).toFixed(2)));
       this.beansUsedCupsPerDay += this.beansUsedCupsPerHour[i];
     }
   },
@@ -585,7 +618,7 @@ var seatacAirport = {
   ////calculate the to-go
   generatetoGoPerHourData: function() {
     for (var i = 0; i < this.hours.length; i++) {
-      this.toGoPerHour.push(parseFloat(this.custPerHour[i] * this.toGoPounds).toFixed(2));
+      this.toGoPerHour.push(parseFloat((this.custPerHour[i] * this.toGoPounds).toFixed(2)));
       this.toGoPerDay += this.toGoPerHour[i];
     }
   },
@@ -594,7 +627,7 @@ var seatacAirport = {
 
   generateaveragetotalLbsData: function() {
     for (var i = 0; i < this.hours.length; i++) {
-      this.averagetotalLbsPerHour.push(parseFloat(this.beansUsedCupsPerHour[i] + this.toGoPerHour[i]).toFixed(2));
+      this.averagetotalLbsPerHour.push(parseFloat((this.beansUsedCupsPerHour[i] + this.toGoPerHour[i]).toFixed(2)));
       this.averagetotalLbsPerDay += this.averagetotalLbsPerHour[i];
       console.log(this.beansUsedCupsPerHour[i]);
     }
@@ -625,3 +658,19 @@ for (i = 0; i < seatacAirport.hours.length; i++) {
   seatacAirportLi.textContent = seatacAirport.hours[i] + ':' + seatacAirport.averagetotalLbsPerHour[i] + ' lbs ' + '[' + seatacAirport.custPerHour[i] + ' customers, ' + seatacAirport.cupsPerHour[i] + ' cups,' + '(' + seatacAirport.beansUsedCupsPerHour[i] + ' lbs), ' + seatacAirport.toGoPerHour[i] + ' lbs to-go]';
   seatacAirportEl.appendChild(seatacAirportLi);
 }
+
+var totalSEATACcustperdayLi = document.createElement('li');
+totalSEATACcustperdayLi.textContent = 'Total Cusomers at Seatac: ' + seatacAirport.custPerDay;
+seatacAirportEl.appendChild(totalSEATACcustperdayLi);
+
+var totalSEATACcupsperdayLi = document.createElement('li');
+totalSEATACcupsperdayLi.textContent = 'Total cups sold at Seatac: ' + seatacAirport.cupsPerDay;
+seatacAirportEl.appendChild(totalSEATACcupsperdayLi);
+
+var totalSEATACtogoperdayLi = document.createElement('li');
+totalSEATACtogoperdayLi.textContent = 'Total to-go pound packages sold at Seatac: ' + seatacAirport.toGoPerDay;
+seatacAirportEl.appendChild(totalSEATACtogoperdayLi);
+
+var totalSEATACbeansperdayLi = document.createElement('li');
+totalSEATACbeansperdayLi.textContent = 'Total pounds of beans needed at Seatac: ' + seatacAirport.averagetotalLbsPerDay;
+seatacAirportEl.appendChild(totalSEATACbeansperdayLi);
