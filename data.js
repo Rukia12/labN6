@@ -135,15 +135,15 @@ totalpikecustperdayLi.textContent = 'Total Cusomers at Pike Place: ' + pikePlace
 pikePlaceMarketEl.appendChild(totalpikecustperdayLi);
 
 var totalpikecupsperdayLi = document.createElement('li');
-totalpikecupsperdayLi.textContent = 'Total cups sold at Pike Place Market: ' + pikePlaceMarket.cupsPerDay;
+totalpikecupsperdayLi.textContent = 'Total cups sold at Pike Place Market: ' + parseFloat(pikePlaceMarket.cupsPerDay).toFixed(2);
 pikePlaceMarketEl.appendChild(totalpikecupsperdayLi);
 
 var totalpiketogoLi = document.createElement('li');
-totalpiketogoLi.textContent = 'Total to-go pound packages sold at Pike Place Market: ' + pikePlaceMarket.toGoPerDay;
+totalpiketogoLi.textContent = 'Total to-go pound packages sold at Pike Place Market: ' + parseFloat(pikePlaceMarket.toGoPerDay).toFixed(2);
 pikePlaceMarketEl.appendChild(totalpiketogoLi);
 
 var totalpikebeansLi = document.createElement('li');
-totalpikebeansLi.textContent = 'Total pounds of beans needed at Pike Place Market: ' + pikePlaceMarket.averagetotalLbsPerDay;
+totalpikebeansLi.textContent = 'Total pounds of beans needed at Pike Place Market: ' + parseFloat(pikePlaceMarket.averagetotalLbsPerDay).toFixed(2);
 pikePlaceMarketEl.appendChild(totalpikebeansLi);
 
 ///////////Capitol Hill/////////////
@@ -266,15 +266,15 @@ totalcaphillcustperdayLi.textContent = 'Total Cusomers at Capitol Hill: ' + capi
 capitolHillEl.appendChild(totalcaphillcustperdayLi);
 
 var totalcaphillcupsperdayLi = document.createElement('li');
-totalcaphillcupsperdayLi.textContent = 'Total cups sold at Capitol Hill: ' + capitolHill.cupsPerDay;
+totalcaphillcupsperdayLi.textContent = 'Total cups sold at Capitol Hill: ' + parseFloat(capitolHill.cupsPerDay).toFixed(2);
 capitolHillEl.appendChild(totalcaphillcupsperdayLi);
 
 var totalcaphilltogoperdayLi = document.createElement('li');
-totalcaphilltogoperdayLi.textContent = 'Total to-go pound packages sold at CapitolHill: ' + capitolHill.toGoPerDay;
+totalcaphilltogoperdayLi.textContent = 'Total to-go pound packages sold at CapitolHill: ' + parseFloat(capitolHill.toGoPerDay).toFixed(2);
 capitolHillEl.appendChild(totalcaphilltogoperdayLi);
 
 var totalcaphillbeansperdayLi = document.createElement('li');
-totalcaphillbeansperdayLi.textContent = 'Total pounds of beans needed at Capitol Hill: ' + capitolHill.averagetotalLbsPerDay;
+totalcaphillbeansperdayLi.textContent = 'Total pounds of beans needed at Capitol Hill: ' + parseFloat(capitolHill.averagetotalLbsPerDay).toFixed(2);
 capitolHillEl.appendChild(totalcaphillbeansperdayLi);
 
 ////////Seattle Public Library////////
@@ -398,15 +398,15 @@ totalSPLcustperdayLi.textContent = 'Total Cusomers at Seattle Public Library: ' 
 seattlePublicLibraryEl.appendChild(totalSPLcustperdayLi);
 
 var totalSPLcupsperdayLi = document.createElement('li');
-totalSPLcupsperdayLi.textContent = 'Total cups sold at Seattle Public Library:: ' + seattlePublicLibrary.cupsPerDay;
+totalSPLcupsperdayLi.textContent = 'Total cups sold at Seattle Public Library:: ' + parseFloat(seattlePublicLibrary.cupsPerDay).toFixed(2);
 seattlePublicLibraryEl.appendChild(totalSPLcupsperdayLi);
 
 var totalSPLtogoperdayLi = document.createElement('li');
-totalSPLtogoperdayLi.textContent = 'Total to-go pound packages sold at Seattle Public Library:: ' + seattlePublicLibrary.toGoPerDay;
+totalSPLtogoperdayLi.textContent = 'Total to-go pound packages sold at Seattle Public Library:: ' + parseFloat(seattlePublicLibrary.toGoPerDay).toFixed(2);
 seattlePublicLibraryEl.appendChild(totalSPLtogoperdayLi);
 
 var totalSPLbeansperdayLi = document.createElement('li');
-totalSPLbeansperdayLi.textContent = 'Total pounds of beans needed at Seattle Public Library: ' + seattlePublicLibrary.averagetotalLbsPerDay;
+totalSPLbeansperdayLi.textContent = 'Total pounds of beans needed at Seattle Public Library: ' + parseFloat(seattlePublicLibrary.averagetotalLbsPerDay).toFixed(2);
 seattlePublicLibraryEl.appendChild(totalSPLbeansperdayLi);
 
 
@@ -531,15 +531,15 @@ totalSLUcustperdayLi.textContent = 'Total Cusomers at South Lake Union: ' + sout
 southLakeUnionEl.appendChild(totalSLUcustperdayLi);
 
 var totalSLUcupsperdayLi = document.createElement('li');
-totalSLUcupsperdayLi.textContent = 'Total cups sold at South Lake Union:: ' + southLakeUnion.cupsPerDay;
+totalSLUcupsperdayLi.textContent = 'Total cups sold at South Lake Union:: ' + parseFloat(southLakeUnion.cupsPerDay).toFixed(2);
 southLakeUnionEl.appendChild(totalSLUcupsperdayLi);
 
 var totalSLUtogoperdayLi = document.createElement('li');
-totalSLUtogoperdayLi.textContent = 'Total to-go pound packages sold at South Lake Union: ' + southLakeUnion.toGoPerDay;
+totalSLUtogoperdayLi.textContent = 'Total to-go pound packages sold at South Lake Union: ' + parseFloat(southLakeUnion.toGoPerDay).toFixed(2);
 southLakeUnionEl.appendChild(totalSLUtogoperdayLi);
 
 var totalSLUbeansperdayLi = document.createElement('li');
-totalSLUbeansperdayLi.textContent = 'Total pounds of beans needed at South Lake Union: ' + southLakeUnion.averagetotalLbsPerDay;
+totalSLUbeansperdayLi.textContent = 'Total pounds of beans needed at South Lake Union: ' + parseFloat(southLakeUnion.averagetotalLbsPerDay).toFixed(2);
 southLakeUnionEl.appendChild(totalSLUbeansperdayLi);
 
 
@@ -664,13 +664,13 @@ totalSEATACcustperdayLi.textContent = 'Total Cusomers at Seatac: ' + seatacAirpo
 seatacAirportEl.appendChild(totalSEATACcustperdayLi);
 
 var totalSEATACcupsperdayLi = document.createElement('li');
-totalSEATACcupsperdayLi.textContent = 'Total cups sold at Seatac: ' + seatacAirport.cupsPerDay;
+totalSEATACcupsperdayLi.textContent = 'Total cups sold at Seatac: ' + parseFloat(seatacAirport.cupsPerDay).toFixed(2);
 seatacAirportEl.appendChild(totalSEATACcupsperdayLi);
 
 var totalSEATACtogoperdayLi = document.createElement('li');
-totalSEATACtogoperdayLi.textContent = 'Total to-go pound packages sold at Seatac: ' + seatacAirport.toGoPerDay;
+totalSEATACtogoperdayLi.textContent = 'Total to-go pound packages sold at Seatac: ' + parseFloat(seatacAirport.toGoPerDay).toFixed(2);
 seatacAirportEl.appendChild(totalSEATACtogoperdayLi);
 
 var totalSEATACbeansperdayLi = document.createElement('li');
-totalSEATACbeansperdayLi.textContent = 'Total pounds of beans needed at Seatac: ' + seatacAirport.averagetotalLbsPerDay;
+totalSEATACbeansperdayLi.textContent = 'Total pounds of beans needed at Seatac: ' + parseFloat(seatacAirport.averagetotalLbsPerDay).toFixed(2);
 seatacAirportEl.appendChild(totalSEATACbeansperdayLi);
