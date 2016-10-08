@@ -45,9 +45,8 @@ coffeeShop.prototype.generatebeansUsedCupsPerHourData = function() {
   }
 },
 
-
 ////calculate the to-go
-coffeeShop.prototype.generatetoGoPerHourData = function() {
+/*coffeeShop.prototype.generatetoGoPerHourData = function() {
   for (var i = 0; i < this.hours.length; i++) {
     this.toGoPerHour.push(parseFloat((this.custPerHour[i] * this.toGoPounds).toFixed(2)));
     this.toGoPerDay += this.toGoPerHour[i];
@@ -121,3 +120,5 @@ function makeTable() {
 }
 
 makeTable();
+
+ */
